@@ -1,0 +1,295 @@
+# Decap CMS 설정 — README의 "처음 한 번 설정" 3단계에서 repo와 base_url 두 줄만 바꾸세요.
+backend:
+  name: github
+  repo: YOUR_GITHUB_ID/geonhee-portfolio   # ← 본인 GitHub 아이디/저장소 이름
+  branch: main
+  base_url: https://YOUR-SITE.vercel.app    # ← 배포된 사이트 주소 (끝에 / 없이)
+  auth_endpoint: api/auth
+  commit_messages:
+    create: "추가: {{collection}} “{{slug}}”"
+    update: "수정: {{collection}} “{{slug}}”"
+    delete: "삭제: {{collection}} “{{slug}}”"
+    uploadMedia: "업로드: {{path}}"
+    deleteMedia: "파일 삭제: {{path}}"
+
+# 내 컴퓨터에서 `npm run cms` 실행 후 http://localhost:3000/admin 으로 테스트할 때만 쓰입니다.
+local_backend: true
+
+locale: ko
+publish_mode: simple
+site_url: https://YOUR-SITE.vercel.app
+display_url: https://YOUR-SITE.vercel.app
+
+# 업로드한 이미지·영상이 저장되는 곳
+media_folder: static/uploads
+public_folder: /uploads
+
+collections:
+  # ---------------- 블로그 ----------------
+  - name: posts
+    label: 블로그 글
+    label_singular: 블로그 글
+    folder: content/posts
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: [date, title]
+    summary: "{{date | date('YYYY.MM.DD')}} · {{title}}{{draft | ternary(' (초안)', '')}}"
+    fields:
+      - { label: 제목, name: title, widget: string }
+      - { label: 날짜, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: 한 줄 요약, name: summary, widget: text, required: false, hint: "목록 카드에 보이는 짧은 설명" }
+      - { label: 커버 이미지, name: cover, widget: image, required: false }
+      - { label: 태그, name: tags, widget: list, required: false, hint: "쉼표로 구분" }
+      - { label: 초안 (체크하면 사이트에 안 보임), name: draft, widget: boolean, default: false }
+      - { label: 본문, name: body, widget: markdown, hint: "+ 버튼으로 이미지, 영상(mp4), 사진 나란히 블록을 넣을 수 있어요" }
+
+  # ---------------- 케이스 ----------------
+  - name: cases
+    label: 케이스 스터디
+    label_singular: 케이스
+    folder: content/cases
+    create: true
+    slug: "{{fields.order}}-{{slug}}"
+    sortable_fields: [order, title]
+    summary: "{{order}}. {{title}}"
+    fields:
+      - { label: 순서, name: order, widget: number, value_type: int, hint: "작은 숫자가 위에 나와요" }
+      - { label: 작게 표시 (하단 2단 카드), name: compact, widget: boolean, default: false, hint: "쿠팡이츠·데이원처럼 짧은 카드로 보여줄 때 체크" }
+      - { label: 번호 라벨, name: label, widget: string, required: false, hint: "예: Case 07" }
+      - { label: 회사 · 기간, name: meta, widget: string, required: false, hint: "예: 헤이링 · 25.09–26.01" }
+      - { label: 짧은 카드 태그, name: tag, widget: string, required: false, hint: "작게 표시일 때만. 예: UNIT ECONOMICS" }
+      - label: 퍼널 단계
+        name: stages
+        widget: select
+        multiple: true
+        required: false
+        options:
+          - { label: Acquisition, value: acquisition }
+          - { label: Activation, value: activation }
+          - { label: Retention, value: retention }
+          - { label: Revenue, value: revenue }
+          - { label: Data, value: data }
+      - { label: 제목, name: title, widget: string }
+      - { label: 한 줄 문제 정의, name: question, widget: text, required: false }
+      - label: 본문 단계
+        name: steps
+        widget: list
+        required: false
+        summary: "{{fields.label}}"
+        fields:
+          - { label: 라벨, name: label, widget: string, hint: "문제 / 가설 / 실행 / 배운 것 등" }
+          - { label: 내용, name: body, widget: markdown, buttons: [bold, italic, link, bulleted-list, numbered-list], editor_components: [] }
+      - { label: 결과 박스 제목, name: results_label, widget: string, required: false, default: Results }
+      - label: 결과
+        name: results
+        widget: list
+        required: false
+        summary: "{{fields.value}}"
+        fields:
+          - { label: 숫자/핵심, name: value, widget: string }
+          - { label: 변화 배지, name: delta, widget: string, required: false, hint: "예: +189%" }
+          - { label: 설명, name: text, widget: string, required: false }
+          - { label: 작은 글씨, name: small, widget: boolean, required: false, default: false }
+      - label: 작업 자료 (이미지)
+        name: images
+        widget: list
+        required: false
+        summary: "{{fields.caption}}"
+        fields:
+          - { label: 이미지, name: image, widget: image }
+          - { label: 캡션, name: caption, widget: string }
+          - { label: 클릭 시 열 링크, name: link, widget: string, required: false, hint: "비워두면 클릭 시 크게 보기" }
+      - label: 소재 영상
+        name: videos
+        widget: list
+        required: false
+        summary: "{{fields.caption}}"
+        fields:
+          - label: 종류
+            name: type
+            widget: select
+            default: mp4
+            options: [{ label: "mp4 직접 업로드", value: mp4 }, { label: "YouTube 링크", value: youtube }]
+          - { label: mp4 파일, name: file, widget: file, required: false, hint: "mp4 직접 업로드일 때. 50MB 이하 권장" }
+          - { label: YouTube 주소, name: url, widget: string, required: false }
+          - { label: 썸네일 이미지, name: thumbnail, widget: image, required: false, hint: "mp4는 재생 전 표지, YouTube는 카드 이미지" }
+          - { label: 캡션, name: caption, widget: string }
+          - { label: 세로 영상 (9:16), name: vertical, widget: boolean, default: false }
+      - { label: 더보기 버튼 문구, name: details_summary, widget: string, required: false, hint: "아래 본문을 접어서 보여줄 때 버튼 문구" }
+      - { label: "본문 (더보기 내용 / 짧은 카드 설명)", name: body, widget: markdown, required: false }
+
+  # ---------------- 이야기 ----------------
+  - name: stories
+    label: 일을 하며 생긴 이야기
+    label_singular: 이야기
+    folder: content/stories
+    create: true
+    slug: "{{fields.order}}-{{slug}}"
+    sortable_fields: [order, title]
+    summary: "{{order}}. {{title}}"
+    fields:
+      - { label: 순서, name: order, widget: number, value_type: int }
+      - { label: 제목, name: title, widget: string }
+      - { label: 기간, name: period, widget: string, required: false, hint: "예: 2022~2024" }
+      - { label: 관련 경력/케이스, name: related, widget: string, required: false }
+      - { label: 커버 이미지, name: cover, widget: image }
+      - { label: 본문, name: body, widget: markdown, hint: "+ 버튼 → '사진 나란히'로 노션처럼 사진을 옆으로 배치할 수 있어요" }
+
+  # ---------------- 사이트 기본 정보 ----------------
+  - name: settings
+    label: 사이트 기본 정보
+    editor: { preview: false }
+    files:
+      - name: site
+        label: 메인 페이지 내용
+        file: content/site.json
+        format: json
+        fields:
+          - { label: 이름, name: name, widget: string }
+          - { label: 직함, name: role, widget: string }
+          - { label: 전화번호, name: phone, widget: string, required: false }
+          - { label: 이메일, name: email, widget: string, required: false }
+          - { label: 검색·공유용 설명, name: seo_description, widget: text }
+          - label: 첫 화면
+            name: hero
+            widget: object
+            fields:
+              - { label: 헤드라인 1줄, name: line1, widget: string }
+              - { label: 헤드라인 2줄 강조 부분, name: emphasis, widget: string }
+              - { label: 헤드라인 2줄 나머지, name: line2_rest, widget: string }
+              - { label: 소개 문단, name: lede, widget: text }
+              - label: 핵심 성과 카드
+                name: stats
+                widget: list
+                summary: "{{fields.value}}"
+                fields:
+                  - { label: 숫자, name: value, widget: string }
+                  - { label: 설명, name: desc, widget: text }
+                  - { label: 출처·기간, name: source, widget: string }
+          - label: 경력과 학력
+            name: career
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 영문 라벨, name: eyebrow, widget: string }
+              - { label: 섹션 제목, name: title, widget: string }
+              - label: 경력
+                name: jobs
+                widget: list
+                summary: "{{fields.when}} {{fields.company}}"
+                fields:
+                  - { label: 기간, name: when, widget: string }
+                  - { label: 회사, name: company, widget: string }
+                  - { label: 직무, name: role, widget: string }
+                  - { label: "내용 (**굵게** 가능)", name: items, widget: list, field: { label: 줄, name: item, widget: string } }
+              - label: 학력
+                name: education
+                widget: list
+                summary: "{{fields.when}} {{fields.school}}"
+                fields:
+                  - { label: 시기, name: when, widget: string }
+                  - { label: 학교, name: school, widget: string }
+                  - { label: 상세, name: detail, widget: string }
+                  - { label: 추가 내용, name: items, widget: list, required: false, field: { label: 줄, name: item, widget: string } }
+          - label: 이야기 섹션 제목
+            name: journey
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 영문 라벨, name: eyebrow, widget: string }
+              - { label: 섹션 제목, name: title, widget: string }
+          - label: 성장 모델
+            name: model
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 영문 라벨, name: eyebrow, widget: string }
+              - { label: 섹션 제목, name: title, widget: string }
+              - { label: 설명, name: lede, widget: text }
+              - label: 모델
+                name: models
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: 제목, name: title, widget: string }
+                  - { label: 부제, name: sub, widget: string }
+                  - { label: 결과 항 이름, name: output_name, widget: string }
+                  - { label: 결과 항 설명, name: output_lever, widget: string }
+                  - label: 항
+                    name: terms
+                    widget: list
+                    summary: "{{fields.name}}"
+                    fields:
+                      - { label: 이름, name: name, widget: string }
+                      - { label: 움직인 레버, name: lever, widget: string }
+                      - { label: 직접 움직인 항, name: moved, widget: boolean, default: true }
+                  - { label: 하단 메모 제목, name: note_title, widget: string }
+                  - { label: 하단 메모, name: note, widget: text }
+          - label: 실험 원칙
+            name: method
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 영문 라벨, name: eyebrow, widget: string }
+              - { label: 섹션 제목, name: title, widget: string }
+              - label: 원칙
+                name: principles
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: 제목, name: title, widget: string }
+                  - { label: 내용, name: body, widget: text }
+                  - { label: 근거 표시, name: proof, widget: string }
+          - label: 케이스 섹션 제목
+            name: cases_section
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 영문 라벨, name: eyebrow, widget: string }
+              - { label: 섹션 제목, name: title, widget: string }
+              - { label: 설명, name: lede, widget: string, required: false }
+          - label: AI·자동화
+            name: automation
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 영문 라벨, name: eyebrow, widget: string }
+              - { label: 섹션 제목, name: title, widget: string }
+              - { label: 설명, name: lede, widget: text }
+              - label: 카드
+                name: cards
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: 상단 파이프라인, name: pipe, widget: string }
+                  - { label: 제목, name: title, widget: string }
+                  - { label: 내용, name: body, widget: text }
+          - label: 스킬
+            name: skills
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 영문 라벨, name: eyebrow, widget: string }
+              - { label: 섹션 제목, name: title, widget: string }
+              - label: 그룹
+                name: groups
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: 그룹 이름, name: name, widget: string }
+                  - label: 항목
+                    name: items
+                    widget: list
+                    summary: "{{fields.text}}"
+                    fields:
+                      - { label: 내용, name: text, widget: string }
+                      - { label: 수준, name: level, widget: string, required: false, hint: "예: 능통, 중상" }
+          - label: 블로그 섹션
+            name: blog
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 영문 라벨, name: eyebrow, widget: string }
+              - { label: 섹션 제목, name: title, widget: string }
+              - { label: 설명, name: lede, widget: string, required: false }
+              - { label: 메인에 보여줄 글 수, name: home_count, widget: number, value_type: int, default: 3 }
