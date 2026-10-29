@@ -82,7 +82,7 @@ function shell({ title, desc, body, home, navItems, brand, brandHref }) {
   const h = home ? '' : '/';
   const nav = navItems || [
     ['경력', `${h}#career`], ['이야기', `${h}#journey`], ['성장 모델', `${h}#model`], ['실험 원칙', `${h}#method`],
-    ['케이스', `${h}#cases`], ['AI·자동화', `${h}#automation`], ['블로그', '/blog/'], ['영상 포폴', '/video/'], ['연락처', `${h}#contact`],
+    ['케이스', `${h}#cases`], ['AI·자동화', `${h}#automation`], ['영상 포폴', '/video/'], ['연락처', `${h}#contact`],
   ];
   return `<!doctype html>
 <html lang="ko">
@@ -311,28 +311,25 @@ ${stories.map((s) => `<template id="story-${esc(s.slug)}">
   </div>
 </section>
 
-${posts.length ? `<section id="blog">
-  <div class="wrap">
-    ${sectionHead(site.blog)}
-    <div class="posts">${posts.slice(0, site.blog.home_count || 3).map(postCard).join('')}</div>
-    <p class="all-posts"><a href="/blog/">전체 글 보기 →</a></p>
-  </div>
-</section>` : ''}
+${contactSection(site.role)}
+`;
+  return shell({ title: `${site.name} · Growth Marketer`, desc: site.seo_description, body, home: true });
+}
 
-<section id="contact" class="contact">
+// 메인·/video 공용 연락처 섹션
+function contactSection(role) {
+  return `<section id="contact" class="contact">
   <div class="wrap">
     <div class="eyebrow">Contact</div>
     <div class="box">
-      <div class="who2"><strong>${esc(site.name)}</strong><span class="hint">${esc(site.role)}</span></div>
+      <div class="who2"><strong>${esc(site.name)}</strong><span class="hint">${esc(role)}</span></div>
       <div class="lines">
         ${site.phone ? `<div class="row"><span class="k">Phone</span><span class="num" id="tel-num">${esc(site.phone)}</span><button class="copy" type="button" data-target="tel-num" data-label="번호 복사">번호 복사</button></div>` : ''}
         ${site.email ? `<div class="row"><span class="k">Email</span><span class="num mail" id="mail-addr">${esc(site.email)}</span><button class="copy" type="button" data-target="mail-addr" data-label="이메일 복사">이메일 복사</button></div>` : ''}
       </div>
     </div>
   </div>
-</section>
-`;
-  return shell({ title: `${site.name} · Growth Marketer`, desc: site.seo_description, body, home: true });
+</section>`;
 }
 
 
@@ -421,27 +418,12 @@ ${usedProc.map((p) => `<template id="process-${esc(p.case)}">
   </div>
 </div></section>
 
-<section id="about"><div class="wrap">
-  ${sectionHead(v.about)}
-  <div class="about-box"><p>${esc(v.about.body)}</p><a class="case-chip" href="/">${esc(v.about.growth_link_label)} <span aria-hidden="true">→</span></a></div>
-</div></section>
-
-<section id="contact" class="contact"><div class="wrap">
-  ${sectionHead(v.contact)}
-  <div class="box">
-    <div class="who2"><strong>${esc(site.name)}</strong><span class="hint">영상 콘텐츠 마케터 · 프리랜서</span>
-      <ul class="checklist">${list(v.contact.checklist).map((c) => `<li>${esc(c)}</li>`).join('')}</ul></div>
-    <div class="lines">
-      ${site.phone ? `<div class="row"><span class="k">Phone</span><span class="num" id="tel-num">${esc(site.phone)}</span><button class="copy" type="button" data-target="tel-num" data-label="번호 복사">번호 복사</button></div>` : ''}
-      ${site.email ? `<div class="row"><span class="k">Email</span><span class="num mail" id="mail-addr">${esc(site.email)}</span><button class="copy" type="button" data-target="mail-addr" data-label="이메일 복사">이메일 복사</button></div>` : ''}
-    </div>
-  </div>
-</div></section>
+${contactSection('Video Content Marketer')}
 `;
   return shell({
     title: `${site.name} · 영상 콘텐츠 마케터`, desc: v.seo_description, body,
     brand: `${site.name} · Video Content Marketer`, brandHref: '/video/',
-    navItems: [['작업', '#work'], ['케이스', '#vcases'], ['제작 방식', '#vprocess'], ['서비스', '#services'], ['문의', '#contact'], ['그로스 포폴', '/']],
+    navItems: [['작업', '#work'], ['케이스', '#vcases'], ['제작 방식', '#vprocess'], ['서비스', '#services'], ['연락처', '#contact'], ['그로스 포폴', '/']],
   });
 }
 
