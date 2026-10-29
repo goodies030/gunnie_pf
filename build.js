@@ -422,7 +422,7 @@ ${contactSection('Video Content Marketer')}
 `;
   return shell({
     title: `${site.name} · 영상 콘텐츠 마케터`, desc: v.seo_description, body,
-    brand: `${site.name} · Video Content Marketer`, brandHref: '/video/',
+    brand: `${site.name} · Content Marketing`, brandHref: '/video/',
     navItems: [['작업', '#work'], ['케이스', '#vcases'], ['제작 방식', '#vprocess'], ['서비스', '#services'], ['연락처', '#contact'], ['그로스 포폴', '/']],
   });
 }
