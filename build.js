@@ -421,7 +421,7 @@ ${usedProc.map((p) => `<template id="process-${esc(p.case)}">
 ${contactSection('Video Content Marketer')}
 `;
   return shell({
-    title: `${site.name} · 영상 콘텐츠 마케터`, desc: v.seo_description, body,
+    title: `${site.name} · 콘텐츠 마케팅 포트폴리오`, desc: v.seo_description, body,
     brand: `${site.name} · Content Marketing`, brandHref: '/video/',
     navItems: [['작업', '#work'], ['케이스', '#vcases'], ['제작 방식', '#vprocess'], ['서비스', '#services'], ['연락처', '#contact'], ['그로스 포폴', '/']],
   });
