@@ -197,6 +197,87 @@
       }
     ]
   },
+  "gallery": {
+    "eyebrow": "Gallery",
+    "title": "작업물 갤러리",
+    "items": [
+      {
+        "file": "/uploads/gallery/heyring-01.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-02.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-03.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-04.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-05.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-06.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-07.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-08.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-09.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-10.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-11.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-12.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-13.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-14.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-15.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-16.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-17.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-18.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-19.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-20.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-21.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-22.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-23.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-24.mp4"
+      },
+      {
+        "file": "/uploads/gallery/heyring-25.mp4"
+      }
+    ]
+  },
   "cases": {
     "eyebrow": "Case studies",
     "title": "영상으로 숫자를 움직인 프로젝트",

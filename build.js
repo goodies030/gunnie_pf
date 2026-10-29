@@ -383,6 +383,11 @@ function videoPage() {
   </div>
   <div class="works">${work}</div>
 </div></section>
+${v.gallery && list(v.gallery.items).length ? `
+<section id="gallery"><div class="wrap">
+  ${sectionHead(v.gallery)}
+  <div class="gallery">${list(v.gallery.items).map((g) => `<div class="g-item"><video src="${esc(g.file)}#t=0.1" controls playsinline preload="metadata"></video></div>`).join('')}</div>
+</div></section>` : ''}
 
 <section id="vcases"><div class="wrap">
   ${sectionHead(v.cases)}

@@ -21,6 +21,7 @@ content/stories/*.md  "일을 하며 생긴 이야기"
 content/video.json    /video 페이지 전체 데이터
 static/img            노션에서 가져온 이미지 (webp)
 static/uploads/thumbs YouTube 썸네일 (영상 ID.webp)
+static/uploads/gallery /video 작업물 갤러리 mp4 (video.json `gallery.items`, 영상별 제목 없음)
 admin/config.yml      CMS 필드 정의 / admin/cms.js 에디터 블록(사진 나란히, mp4, YouTube 카드)
 ```
 
