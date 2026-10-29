@@ -3,7 +3,7 @@ backend:
   name: github
   repo: goodies030/gunnie_pf
   branch: main
-  base_url: https://gunniepf.vercel.app
+  base_url: https://gunniepf-nine.vercel.app
   auth_endpoint: api/auth
   commit_messages:
     create: "추가: {{collection}} “{{slug}}”"
