@@ -1,9 +1,9 @@
 # Decap CMS 설정 — README의 "처음 한 번 설정" 3단계에서 repo와 base_url 두 줄만 바꾸세요.
 backend:
   name: github
-  repo: YOUR_GITHUB_ID/geonhee-portfolio   # ← 본인 GitHub 아이디/저장소 이름
+  repo: goodies030/gunnie_pf
   branch: main
-  base_url: https://YOUR-SITE.vercel.app    # ← 배포된 사이트 주소 (끝에 / 없이)
+  base_url: https://gunniepf.vercel.app
   auth_endpoint: api/auth
   commit_messages:
     create: "추가: {{collection}} “{{slug}}”"
@@ -118,6 +118,24 @@ collections:
       - { label: 더보기 버튼 문구, name: details_summary, widget: string, required: false, hint: "아래 본문을 접어서 보여줄 때 버튼 문구" }
       - { label: "본문 (더보기 내용 / 짧은 카드 설명)", name: body, widget: markdown, required: false }
 
+  # ---------------- 세부 작업 과정 ----------------
+  - name: process
+    label: 세부 작업 과정
+    label_singular: 세부 작업 과정
+    folder: content/process
+    create: true
+    identifier_field: title
+    slug: "{{fields.case}}"
+    summary: "{{case}} · {{title}}"
+    fields:
+      - { label: 연결할 케이스 파일 이름, name: case, widget: string, hint: "케이스 파일 이름과 똑같이. 예: 01-heyring-dap" }
+      - { label: 문서 제목, name: title, widget: string }
+      - { label: 태그, name: tags, widget: list, required: false }
+      - { label: 포지션, name: position, widget: string, required: false }
+      - { label: 기여도(%), name: contribution, widget: string, required: false }
+      - { label: 카드 썸네일, name: cover, widget: image, required: false }
+      - { label: 본문, name: body, widget: markdown, hint: "+ 버튼으로 이미지, YouTube 카드, 영상(mp4), 사진 나란히 블록 추가" }
+
   # ---------------- 이야기 ----------------
   - name: stories
     label: 일을 하며 생긴 이야기
@@ -166,6 +184,8 @@ collections:
                   - { label: 숫자, name: value, widget: string }
                   - { label: 설명, name: desc, widget: text }
                   - { label: 출처·기간, name: source, widget: string }
+                  - { label: 연결할 케이스 주소, name: link, widget: string, required: false, hint: "예: #01-heyring-dap (케이스 파일 이름 앞에 #)" }
+                  - { label: 연결 문구, name: link_label, widget: string, required: false, hint: "예: Case 01" }
           - label: 경력과 학력
             name: career
             widget: object

@@ -60,3 +60,22 @@ CMS.registerEditorComponent({
   toBlock: function (d) { return videoHtml(d); },
   toPreview: function (d) { return videoHtml(d); }
 });
+
+// ---------- YouTube 카드 ----------
+function ytId(v) {
+  var m = String(v || '').match(/(?:v=|shorts\/|youtu\.be\/)([\w-]{6,})/);
+  return m ? m[1] : String(v || '').trim();
+}
+CMS.registerEditorComponent({
+  id: 'youtube',
+  label: 'YouTube 카드',
+  fields: [
+    { name: 'url', label: 'YouTube 주소', widget: 'string' },
+    { name: 'caption', label: '캡션', widget: 'string', required: false },
+    { name: 'vertical', label: '세로(쇼츠)', widget: 'boolean', default: false }
+  ],
+  pattern: /^\[\[youtube:([\w-]+)\|([^|\]]*)\|(v?)\]\]$/m,
+  fromBlock: function (m) { return { url: 'https://www.youtube.com/watch?v=' + m[1], caption: m[2], vertical: m[3] === 'v' }; },
+  toBlock: function (d) { return '[[youtube:' + ytId(d.url) + '|' + (d.caption || '').replace(/[|\]]/g, ' ') + '|' + (d.vertical ? 'v' : '') + ']]'; },
+  toPreview: function (d) { return '<p>▶ YouTube: ' + (d.caption || ytId(d.url)) + '</p>'; }
+});

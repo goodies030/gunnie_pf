@@ -10,42 +10,106 @@
     "line2_rest": "을 데이터로 찾습니다.",
     "lede": "유저가 왜 돈을 내는지를 데이터와 유저의 언어에서 찾고, 그 답을 광고·온보딩·첫 사용 경험·페이월·CRM까지 끊기지 않게 잇습니다. 성과는 설치나 클릭이 아니라 결제, 환불, 코호트 품질로 판단합니다.",
     "stats": [
-      { "value": "+189%", "desc": "신규 결제 금액 5,161만 → 1억 4,904만 원. 기능 추가 없이 포지셔닝과 UA로 만든 성장", "source": "헤이링 · 25.09 → 25.12" },
-      { "value": "₩0 → 3,751만", "desc": "Web2App 결제 퍼널을 새로 구축해 런칭 1개월 만에 만든 신규 매출원", "source": "헤이링 · 26 Q2" },
-      { "value": "2.1 → 14%", "desc": "CRM 기여 유료 전환율. 구독 CPA ₩110,000 → ₩90,000", "source": "콰트 · 25.02 → 25.08" },
-      { "value": "CAC −78.4%", "desc": "전년 대비. 전사 영업이익 −124억 → +6억 흑자 전환에 기여", "source": "설탭 · 24.06 → 25.01" }
+      {
+        "value": "+189%",
+        "desc": "신규 결제 금액 5,161만 → 1억 4,904만 원. 기능 추가 없이 포지셔닝과 UA로 만든 성장",
+        "source": "헤이링 · 25.09 → 25.12",
+        "link": "#01-heyring-dap",
+        "link_label": "Case 01"
+      },
+      {
+        "value": "₩0 → 3,751만",
+        "desc": "Web2App 결제 퍼널을 새로 구축해 런칭 1개월 만에 만든 신규 매출원",
+        "source": "헤이링 · 26 Q2",
+        "link": "#02-heyring-web2app",
+        "link_label": "Case 02"
+      },
+      {
+        "value": "2.1 → 14%",
+        "desc": "CRM 기여 유료 전환율. 구독 CPA ₩110,000 → ₩90,000",
+        "source": "콰트 · 25.02 → 25.08",
+        "link": "#04-quat-crm",
+        "link_label": "Case 04"
+      },
+      {
+        "value": "CAC −78.4%",
+        "desc": "전년 대비. 전사 영업이익 −124억 → +6억 흑자 전환에 기여",
+        "source": "설탭 · 24.06 → 25.01",
+        "link": "#06-seoltab-viral",
+        "link_label": "Case 06"
+      }
     ]
   },
   "career": {
     "eyebrow": "Experience & Education",
     "title": "경력과 학력",
     "jobs": [
-      { "when": "25.09 – 26.09", "company": "하이퍼노바 (헤이링)", "role": "1인 Growth PMM", "items": [
-        "25.09–25.12 초기 그로스 가설과 LMF 검증. 25 Q4 매출 **QoQ +60.0%**",
-        "26.01–26.03 Paid UA 확장과 그로스 운영 체계화. 26 Q1 매출 **QoQ +59.6%**, 앱스토어 교육 카테고리 매출 4위",
-        "26.04–26.06 결제 퍼널 고도화와 Web2App 결제 구축. 신규 매출원 **₩37,515,000**"
-      ] },
-      { "when": "25.02 – 25.08", "company": "엔라이즈 (위피, 콰트)", "role": "Growth Marketer, Senior", "items": [
-        "콰트 CRM 리뉴얼. CRM 기여 유료 전환율 **2.1% → 14%**, Blended ROAS 170% → 260%"
-      ] },
-      { "when": "25.01 – 25.02", "company": "쿠팡이츠", "role": "B2B Strategy, LV5", "items": [
-        "광고 상품 전략과 수익화 시뮬레이션, 대형 광고주 컨설팅·세일즈"
-      ] },
-      { "when": "23.01 – 25.01", "company": "오누이 (설탭)", "role": "Growth Marketer · Manager → Part Lead → Team Lead", "items": [
-        "24.06–25.01 Team Lead. 마케팅 리드 KPI 달성과 세일즈 협업. CAC **−78.4%**, 영업이익 흑자 전환 기여",
-        "23.06–24.05 Part Lead. 페이드 리드 **+200%**, CAC −45%",
-        "23.01–23.03 Manager. 학부모 타깃 피봇과 ROI 검증. CAC ₩59,364"
-      ] },
-      { "when": "22.03 – 22.11", "company": "데이원컴퍼니", "role": "Product Marketer, Manager", "items": [
-        "가벼운 일본어 학습지 전담 마케터. 분기 ROAS **381.7%** 상승, 학습지 매출 1위"
-      ] }
+      {
+        "when": "25.09 – 26.09",
+        "company": "하이퍼노바 (헤이링)",
+        "role": "1인 Growth PMM",
+        "items": [
+          "25.09–25.12 초기 그로스 가설과 LMF 검증. 25 Q4 매출 **QoQ +60.0%**",
+          "26.01–26.03 Paid UA 확장과 그로스 운영 체계화. 26 Q1 매출 **QoQ +59.6%**, 앱스토어 교육 카테고리 매출 4위",
+          "26.04–26.06 결제 퍼널 고도화와 Web2App 결제 구축. 신규 매출원 **₩37,515,000**"
+        ]
+      },
+      {
+        "when": "25.02 – 25.08",
+        "company": "엔라이즈 (위피, 콰트)",
+        "role": "Growth Marketer, Senior",
+        "items": [
+          "콰트 CRM 리뉴얼. CRM 기여 유료 전환율 **2.1% → 14%**, Blended ROAS 170% → 260%"
+        ]
+      },
+      {
+        "when": "25.01 – 25.02",
+        "company": "쿠팡이츠",
+        "role": "B2B Strategy, LV5",
+        "items": [
+          "광고 상품 전략과 수익화 시뮬레이션, 대형 광고주 컨설팅·세일즈"
+        ]
+      },
+      {
+        "when": "23.01 – 25.01",
+        "company": "오누이 (설탭)",
+        "role": "Growth Marketer · Manager → Part Lead → Team Lead",
+        "items": [
+          "24.06–25.01 Team Lead. 마케팅 리드 KPI 달성과 세일즈 협업. CAC **−78.4%**, 영업이익 흑자 전환 기여",
+          "23.06–24.05 Part Lead. 페이드 리드 **+200%**, CAC −45%",
+          "23.01–23.03 Manager. 학부모 타깃 피봇과 ROI 검증. CAC ₩59,364"
+        ]
+      },
+      {
+        "when": "22.03 – 22.11",
+        "company": "데이원컴퍼니",
+        "role": "Product Marketer, Manager",
+        "items": [
+          "가벼운 일본어 학습지 전담 마케터. 분기 ROAS **381.7%** 상승, 학습지 매출 1위"
+        ]
+      }
     ],
     "education": [
-      { "when": "2022.02", "school": "덕성여자대학교", "detail": "미술사학과 · 철학과 졸업", "items": ["학점 4.1 / 4.4"] },
-      { "when": "2019.09", "school": "Université de Franche-Comté", "detail": "CLA · 중퇴", "items": [] }
+      {
+        "when": "2022.02",
+        "school": "덕성여자대학교",
+        "detail": "미술사학과 · 철학과 졸업",
+        "items": [
+          "학점 4.1 / 4.4"
+        ]
+      },
+      {
+        "when": "2019.09",
+        "school": "Université de Franche-Comté",
+        "detail": "CLA · 중퇴",
+        "items": []
+      }
     ]
   },
-  "journey": { "eyebrow": "Journey", "title": "일을 하며 생긴 이야기" },
+  "journey": {
+    "eyebrow": "Journey",
+    "title": "일을 하며 생긴 이야기"
+  },
   "model": {
     "eyebrow": "Growth model",
     "title": "매출을 수식으로 놓고, 어느 항을 움직였는지 말합니다",
@@ -57,11 +121,31 @@
         "output_name": "신규 결제액",
         "output_lever": "월 단위 KPI",
         "terms": [
-          { "name": "유입", "lever": "DAP 메시지로 Meta·Google·ASA 재설계, OS별 소재 분리", "moved": true },
-          { "name": "첫 통화 경험", "lever": "DAP 관점을 통화 프롬프트에 반영", "moved": true },
-          { "name": "결제 전환 (I2P)", "lever": "페이월 메시지, 미결제자 타임어택 푸시", "moved": true },
-          { "name": "결제 채널 수익률", "lever": "Web2App으로 스토어 수수료 절감", "moved": true },
-          { "name": "(1 − 환불률)", "lever": "환불 설문 × OS 연결 분석", "moved": true }
+          {
+            "name": "유입",
+            "lever": "DAP 메시지로 Meta·Google·ASA 재설계, OS별 소재 분리",
+            "moved": true
+          },
+          {
+            "name": "첫 통화 경험",
+            "lever": "DAP 관점을 통화 프롬프트에 반영",
+            "moved": true
+          },
+          {
+            "name": "결제 전환 (I2P)",
+            "lever": "페이월 메시지, 미결제자 타임어택 푸시",
+            "moved": true
+          },
+          {
+            "name": "결제 채널 수익률",
+            "lever": "Web2App으로 스토어 수수료 절감",
+            "moved": true
+          },
+          {
+            "name": "(1 − 환불률)",
+            "lever": "환불 설문 × OS 연결 분석",
+            "moved": true
+          }
         ],
         "note_title": "운영 판단 기준.",
         "note": "캠페인은 CPI, D3·D7 ROAS, I2P 결제 전환율로 증액·감액·중단을 판단했습니다. 매출이 움직이면 광고비 변화인지, 채널 유입 품질인지, 제품 경험의 전환 문제인지, 결제 후 환불인지를 분리해서 봤습니다."
@@ -72,10 +156,26 @@
         "output_name": "신규 매출",
         "output_lever": "객단가 78만 원+",
         "terms": [
-          { "name": "리드 (광고 → 랜딩)", "lever": "학부모 불안·희망 서사, 당근·토스로 매체 확장", "moved": true },
-          { "name": "MQL → SQL", "lever": "타입폼 설문과 알림톡 너처링", "moved": true },
-          { "name": "상담 → 결제", "lever": "세일즈 온보딩, 유형별 상담 시나리오", "moved": true },
-          { "name": "객단가 · 업셀", "lever": "첫 통화 내 결제와 업셀 구조", "moved": false }
+          {
+            "name": "리드 (광고 → 랜딩)",
+            "lever": "학부모 불안·희망 서사, 당근·토스로 매체 확장",
+            "moved": true
+          },
+          {
+            "name": "MQL → SQL",
+            "lever": "타입폼 설문과 알림톡 너처링",
+            "moved": true
+          },
+          {
+            "name": "상담 → 결제",
+            "lever": "세일즈 온보딩, 유형별 상담 시나리오",
+            "moved": true
+          },
+          {
+            "name": "객단가 · 업셀",
+            "lever": "첫 통화 내 결제와 업셀 구조",
+            "moved": false
+          }
         ],
         "note_title": "유닛 이코노믹스.",
         "note": "0→1 퍼널 검증 3개월 차에 CAC 59,364원을 확인했습니다. 최소 객단가가 78만 원 이상이라 전사 획득 퍼널을 이 구조로 바꾸는 근거가 되었습니다. 이후 리드 볼륨은 늘리면서 CAC를 낮추는 데 집중했습니다."
@@ -86,47 +186,133 @@
     "eyebrow": "How I experiment",
     "title": "가설, 측정, 검증을 이렇게 돌립니다",
     "principles": [
-      { "title": "측정하기 전에 정의부터 검증합니다", "body": "헤이링에서 결제자를 멤버십 컬럼으로 뽑으면 최근 결제자가 0명으로 나왔습니다. 테이블을 다시 탐색해 실제 멤버십 생성 이력으로 결제자를 재정의했습니다. 기준이 틀리면 실험 결론도 틀립니다.", "proof": "→ Case 03 · SQL" },
-      { "title": "통제군을 두고 메시지를 비교합니다", "body": "기존 기능 소구 소재를 A군(USP), 새 애착 소구 소재를 B군(DAP)으로 묶어 Meta에서 먼저 파일럿을 돌렸습니다. 이긴 메시지만 Google, ASA, 앱스토어, 페이월로 확장했습니다.", "proof": "→ Case 01 · 25.10 파일럿 → 11~12월 확장" },
-      { "title": "설치가 아니라 결제와 코호트로 판단합니다", "body": "ROAS와 CPI만 보지 않고, 어떤 채널에서 어떤 유저가 들어와 얼마를 결제하고 얼마나 환불하는지까지 연결해 봤습니다. 설탭에서는 리드 수가 아니라 세일즈 전환까지 이어지는 리드를 기준으로 삼았습니다.", "proof": "→ Case 01 · 03 · 05" },
-      { "title": "이긴 이유는 원리로, 진 이유는 병목으로 남깁니다", "body": "잘 된 소재는 왜 잘 됐는지 정의해 팀이 재사용할 수 있는 가이드로 만들었습니다. 안 된 캠페인은 감으로 끄지 않고 병목을 더 작게 나눠 확인했습니다.", "proof": "→ Case 06 · 세일즈 주간 스프린트" }
+      {
+        "title": "측정하기 전에 정의부터 검증합니다",
+        "body": "헤이링에서 결제자를 멤버십 컬럼으로 뽑으면 최근 결제자가 0명으로 나왔습니다. 테이블을 다시 탐색해 실제 멤버십 생성 이력으로 결제자를 재정의했습니다. 기준이 틀리면 실험 결론도 틀립니다.",
+        "proof": "→ Case 03 · SQL"
+      },
+      {
+        "title": "통제군을 두고 메시지를 비교합니다",
+        "body": "기존 기능 소구 소재를 A군(USP), 새 애착 소구 소재를 B군(DAP)으로 묶어 Meta에서 먼저 파일럿을 돌렸습니다. 이긴 메시지만 Google, ASA, 앱스토어, 페이월로 확장했습니다.",
+        "proof": "→ Case 01 · 25.10 파일럿 → 11~12월 확장"
+      },
+      {
+        "title": "설치가 아니라 결제와 코호트로 판단합니다",
+        "body": "ROAS와 CPI만 보지 않고, 어떤 채널에서 어떤 유저가 들어와 얼마를 결제하고 얼마나 환불하는지까지 연결해 봤습니다. 설탭에서는 리드 수가 아니라 세일즈 전환까지 이어지는 리드를 기준으로 삼았습니다.",
+        "proof": "→ Case 01 · 03 · 05"
+      },
+      {
+        "title": "이긴 이유는 원리로, 진 이유는 병목으로 남깁니다",
+        "body": "잘 된 소재는 왜 잘 됐는지 정의해 팀이 재사용할 수 있는 가이드로 만들었습니다. 안 된 캠페인은 감으로 끄지 않고 병목을 더 작게 나눠 확인했습니다.",
+        "proof": "→ Case 06 · 세일즈 주간 스프린트"
+      }
     ]
   },
-  "cases_section": { "eyebrow": "Case studies", "title": "문제를 정의하고 숫자로 닫은 프로젝트", "lede": "퍼널 단계로 필터링해서 볼 수 있습니다." },
+  "cases_section": {
+    "eyebrow": "Case studies",
+    "title": "문제를 정의하고 숫자로 닫은 프로젝트",
+    "lede": "퍼널 단계로 필터링해서 볼 수 있습니다."
+  },
   "automation": {
     "eyebrow": "AI as default",
     "title": "반복 업무를 자동화해 실험 속도를 올립니다",
     "lede": "분석, 소재 제작, 리포팅, 캠페인 판단에 AI와 자동화를 기본값으로 씁니다. 1인 그로스 환경에서 팀 단위 운영 속도를 낼 수 있었던 이유입니다.",
     "cards": [
-      { "pipe": "Meta · Google · ASA API → 자체 서버 → 대시보드", "title": "광고 API 연동 자체 그로스 대시보드", "body": "Meta, Google, Apple Search Ads API를 자체 서버에 연동해 대시보드를 구축했습니다. 로우데이터 연동부터 광고 셋업까지 한 곳에서 다루고, AI로 데이터를 읽어 의사결정의 기반을 만듭니다." },
-      { "pipe": "Supermetrics → Google Sheets → Apps Script", "title": "일별 마케팅 KPI 자동 리포트", "body": "신규 결제, Paid 매출·비용, ROAS, CPI, Meta·Google 성과를 매일 자동으로 정리합니다. 광고 성과를 오래 들여다보지 않아도 조정이 필요한 캠페인을 바로 찾을 수 있습니다." },
-      { "pipe": "Claude → D/D 캠페인 조정 리포트", "title": "캠페인 증액·감액·중단 후보 도출", "body": "비활성 캠페인을 제외한 비용, OS별 ROAS·CPI를 기준으로 조정 후보를 뽑는 프롬프트와 분석 체계를 설계해 퍼포먼스 운영 리소스를 줄였습니다." },
-      { "pipe": "Higgsfield · Nano Banana Pro · Kling · Minimax", "title": "가설 단위 크리에이티브 제작 파이프라인", "body": "앱 랜딩 영상, 전화 수신 장면, 실사형 대화 소재를 빠르게 만들고 일관성을 유지해, A/B 변형을 적은 리소스로 반복 생산합니다." }
+      {
+        "pipe": "Meta · Google · ASA API → 자체 서버 → 대시보드",
+        "title": "광고 API 연동 자체 그로스 대시보드",
+        "body": "Meta, Google, Apple Search Ads API를 자체 서버에 연동해 대시보드를 구축했습니다. 로우데이터 연동부터 광고 셋업까지 한 곳에서 다루고, AI로 데이터를 읽어 의사결정의 기반을 만듭니다."
+      },
+      {
+        "pipe": "Supermetrics → Google Sheets → Apps Script",
+        "title": "일별 마케팅 KPI 자동 리포트",
+        "body": "신규 결제, Paid 매출·비용, ROAS, CPI, Meta·Google 성과를 매일 자동으로 정리합니다. 광고 성과를 오래 들여다보지 않아도 조정이 필요한 캠페인을 바로 찾을 수 있습니다."
+      },
+      {
+        "pipe": "Claude → D/D 캠페인 조정 리포트",
+        "title": "캠페인 증액·감액·중단 후보 도출",
+        "body": "비활성 캠페인을 제외한 비용, OS별 ROAS·CPI를 기준으로 조정 후보를 뽑는 프롬프트와 분석 체계를 설계해 퍼포먼스 운영 리소스를 줄였습니다."
+      },
+      {
+        "pipe": "Higgsfield · Nano Banana Pro · Kling · Minimax",
+        "title": "가설 단위 크리에이티브 제작 파이프라인",
+        "body": "앱 랜딩 영상, 전화 수신 장면, 실사형 대화 소재를 빠르게 만들고 일관성을 유지해, A/B 변형을 적은 리소스로 반복 생산합니다."
+      }
     ]
   },
   "skills": {
     "eyebrow": "Skill Set",
     "title": "스킬",
     "groups": [
-      { "name": "Data & Analytics", "items": [
-        { "text": "Mixpanel, Looker Studio", "level": "능통" },
-        { "text": "퍼널 트래킹, 이벤트 프로퍼티·대시보드 설계", "level": "" },
-        { "text": "SQL (MySQL · DBeaver, HeidiSQL)", "level": "중상" },
-        { "text": "Braze CRM A/B 테스트", "level": "중상" }
-      ] },
-      { "name": "Performance & Growth", "items": [
-        { "text": "Meta Ads, Google Ads, Apple Search Ads", "level": "능통" },
-        { "text": "Pixel·SDK 전환 이벤트 세팅, MMP", "level": "" },
-        { "text": "Supermetrics 기반 성과 자동화", "level": "" },
-        { "text": "앱푸시·알림톡 CRM, 웹훅 기반 너처링", "level": "" }
-      ] },
-      { "name": "Creative & AI", "items": [
-        { "text": "Figma, CapCut, Premiere Pro", "level": "능통" },
-        { "text": "Higgsfield, Nano Banana Pro, Kling, Minimax", "level": "능통" },
-        { "text": "DA·VA, 상세페이지, KOL 믹스 운영", "level": "" },
-        { "text": "Claude 기반 분석·리포팅 자동화", "level": "" }
-      ] }
+      {
+        "name": "Data & Analytics",
+        "items": [
+          {
+            "text": "Mixpanel, Looker Studio",
+            "level": "능통"
+          },
+          {
+            "text": "퍼널 트래킹, 이벤트 프로퍼티·대시보드 설계",
+            "level": ""
+          },
+          {
+            "text": "SQL (MySQL · DBeaver, HeidiSQL)",
+            "level": "중상"
+          },
+          {
+            "text": "Braze CRM A/B 테스트",
+            "level": "중상"
+          }
+        ]
+      },
+      {
+        "name": "Performance & Growth",
+        "items": [
+          {
+            "text": "Meta Ads, Google Ads, Apple Search Ads",
+            "level": "능통"
+          },
+          {
+            "text": "Pixel·SDK 전환 이벤트 세팅, MMP",
+            "level": ""
+          },
+          {
+            "text": "Supermetrics 기반 성과 자동화",
+            "level": ""
+          },
+          {
+            "text": "앱푸시·알림톡 CRM, 웹훅 기반 너처링",
+            "level": ""
+          }
+        ]
+      },
+      {
+        "name": "Creative & AI",
+        "items": [
+          {
+            "text": "Figma, CapCut, Premiere Pro",
+            "level": "능통"
+          },
+          {
+            "text": "Higgsfield, Nano Banana Pro, Kling, Minimax",
+            "level": "능통"
+          },
+          {
+            "text": "DA·VA, 상세페이지, KOL 믹스 운영",
+            "level": ""
+          },
+          {
+            "text": "Claude 기반 분석·리포팅 자동화",
+            "level": ""
+          }
+        ]
+      }
     ]
   },
-  "blog": { "eyebrow": "Blog", "title": "그로스 노트", "lede": "일하면서 배운 것과 실험 기록을 씁니다.", "home_count": 3 }
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "그로스 노트",
+    "lede": "일하면서 배운 것과 실험 기록을 씁니다.",
+    "home_count": 3
+  }
 }

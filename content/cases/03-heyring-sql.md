@@ -18,7 +18,7 @@ steps:
     body: 결제자 페르소나는 크리에이티브 메시지와 첫 통화 프롬프트에, 고사용자 정의는 CRM 타깃팅에, 통화 횟수별 결제 전환은 퍼널 개선에 반영했습니다.
 results_label: What it unlocked
 results:
-  - { value: "세그먼트 직접 추출", delta: "", text: "예: 여성 20~35세 · 영어 레벨 3~4 · 최근 1개월 결제자" }
+  - { value: "세그먼트 직접 추출", delta: "", text: "예: 여성 20-35세 · 영어 레벨 3~4 · 최근 1개월 결제자" }
   - { value: "채널 품질 판단", delta: "", text: "ROAS·CPI를 넘어 채널별 결제자 구성까지 확인" }
   - { value: "환불 × OS 구조", delta: "", text: "제품 이슈를 OS·사용 맥락별로 분리" }
   - { value: "JOIN · CASE WHEN · DATE_SUB · TIMESTAMPDIFF", delta: "", text: "MySQL (DBeaver)", small: true }

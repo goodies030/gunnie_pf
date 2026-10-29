@@ -31,6 +31,12 @@
         if (t) open(b.querySelector('.st').textContent, t.content.cloneNode(true));
       });
     });
+    [].forEach.call(document.querySelectorAll('.process-card'), function (b) {
+      b.addEventListener('click', function () {
+        var t = document.getElementById('process-' + b.getAttribute('data-process'));
+        if (t) open(b.querySelector('.st').textContent, t.content.cloneNode(true));
+      });
+    });
     [].forEach.call(document.querySelectorAll('button.shot'), function (b) {
       b.addEventListener('click', function () {
         var f = document.createDocumentFragment();
@@ -61,3 +67,13 @@
     });
   });
 })();
+// jumping to a case resets the funnel filter so the target is visible
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a) return;
+  var t = document.getElementById(a.getAttribute('href').slice(1));
+  if (t && t.hidden) {
+    var all = document.querySelector('.chip[data-f="all"]');
+    if (all) all.click();
+  }
+});

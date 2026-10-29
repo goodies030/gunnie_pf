@@ -10,10 +10,27 @@ const OUT = path.join(ROOT, 'dist');
 const C = (...p) => path.join(ROOT, 'content', ...p);
 
 marked.setOptions({ gfm: true, breaks: false });
+// keep '~' as a range sign (e.g. 3~4, 11~12월) instead of strikethrough
+marked.use({ tokenizer: { del() { return undefined; } } });
 
 // ---------- helpers ----------
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const md = (s) => marked.parse(String(s ?? ''));
+const thumbFor = (id) => fs.existsSync(path.join(__dirname, 'static', 'uploads', 'thumbs', id + '.webp')) ? `/uploads/thumbs/${id}.webp` : '';
+// lines like [[youtube:ID|caption|v]]; consecutive lines become one row
+function ytBlocks(src) {
+  return String(src ?? '').replace(/(?:^\[\[youtube:[\w-]+\|[^|\]]*\|v?\]\][ \t]*(?:\n|$))+/gm, (block) => {
+    const cards = block.trim().split('\n').map((l) => {
+      const m = l.trim().match(/^\[\[youtube:([\w-]+)\|([^|\]]*)\|(v?)\]\]$/);
+      if (!m) return '';
+      const [, id, cap, v] = m;
+      const url = v ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`;
+      const th = thumbFor(id);
+      return `<a class="vid${v ? ' short' : ''}" href="${url}" target="_blank" rel="noopener"><span class="thumb" aria-hidden="true">${th ? `<img src="${th}" alt="" loading="lazy">` : ''}</span><span class="cap">${esc(cap)}</span><span class="src">${v ? 'YouTube Shorts' : 'YouTube에서 보기'} ↗</span></a>`;
+    }).join('');
+    return `\n<div class="vids">${cards}</div>\n\n`;
+  });
+}
+const md = (s) => marked.parse(ytBlocks(s));
 const mdi = (s) => marked.parseInline(String(s ?? ''));
 const list = (x) => (Array.isArray(x) ? x : []);
 const slugOf = (file) => path.basename(file, '.md');
@@ -54,6 +71,7 @@ const fmtDate = (d) => {
 // ---------- data ----------
 const site = JSON.parse(fs.readFileSync(C('site.json'), 'utf8'));
 const cases = readFolder('cases').sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+const processes = Object.fromEntries(readFolder('process').map((p) => [p.case, p]));
 const stories = readFolder('stories').sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 const posts = readFolder('posts')
   .filter((p) => !p.draft)
@@ -118,9 +136,15 @@ function mediaBlocks(c, wrap = true) {
   let out = '';
   const ims = list(c.images).filter((x) => x && x.image);
   const vids = list(c.videos).filter((x) => x && (x.url || x.file));
-  if (ims.length) {
+  const pr = processes[c.slug];
+  if (pr) {
+    out += `<div class="media"><span class="label">세부 작업 과정</span><button class="process-card" type="button" data-process="${esc(c.slug)}">
+      ${pr.cover ? `<span class="pc-cover"><img src="${esc(pr.cover)}" alt="" loading="lazy"></span>` : ''}
+      <span class="pc-body"><strong class="st">${esc(pr.title)}</strong><span class="pc-sub">문제 정의부터 실행, 성과까지 더 자세히 보기</span><span class="case-chip">전체 과정 읽기 <span aria-hidden="true">→</span></span></span>
+    </button></div>`;
+  } else if (ims.length) {
     const g = `<div class="shots">${ims.map(shotCard).join('')}</div>`;
-    out += wrap ? `<div class="media"><span class="label">작업 자료</span>${g}</div>` : g;
+    out += wrap ? `<div class="media"><span class="label">세부 작업 과정</span>${g}</div>` : g;
   }
   if (vids.length) {
     const g = `<div class="vids">${vids.map(videoCard).join('')}</div>`;
@@ -160,6 +184,20 @@ function postCard(p) {
 </a>`;
 }
 
+
+// "→ Case 01 · 03 · 05 · note" -> pill buttons per case + small note
+function linkCases(text) {
+  const bySlug = {};
+  for (const c of cases) { const m = String(c.label || '').match(/(\d{2})/); if (m) bySlug[m[1]] = c.slug; }
+  const t = String(text || '').replace(/^→\s*/, '');
+  const m = t.match(/^Case ((?:\d{2})(?: · \d{2})*)(?: · (.*))?$/);
+  if (!m) return `<span class="proof-note">${esc(t)}</span>`;
+  const chips = m[1].split(' · ').map((n) => bySlug[n]
+    ? `<a class="case-chip" href="#${esc(bySlug[n])}">Case ${n} 보기 <span aria-hidden="true">→</span></a>`
+    : `<span class="case-chip off">Case ${n}</span>`).join('');
+  return `<span class="chips">${chips}</span>${m[2] ? `<span class="proof-note">${esc(m[2])}</span>` : ''}`;
+}
+
 // ---------- home ----------
 function home() {
   const hero = site.hero;
@@ -173,7 +211,7 @@ function home() {
     <div class="who"><b>${esc(site.name)}</b><span>${esc(site.role)}</span>${site.phone ? `<span class="tel">${esc(site.phone)}</span>` : ''}${site.email ? `<span class="tel">${esc(site.email)}</span>` : ''}</div>
     <h1>${esc(hero.line1)}<br><em>${esc(hero.emphasis)}</em>${esc(hero.line2_rest)}</h1>
     <p class="lede">${esc(hero.lede)}</p>
-    <div class="stats" role="list">${list(hero.stats).map((s) => `<div class="stat" role="listitem"><span class="k mono">${esc(s.value)}</span><span class="d">${esc(s.desc)}</span><span class="src">${esc(s.source)}</span></div>`).join('')}</div>
+    <div class="stats" role="list">${list(hero.stats).map((s) => (s.link ? `<a class="stat stat-link" role="listitem" href="${esc(s.link)}">` : `<div class="stat" role="listitem">`) + `<span class="k mono">${esc(s.value)}</span><span class="d">${esc(s.desc)}</span>${s.link ? `<span class="src src-link"><span>${esc(s.source)}</span><span class="case-chip">${esc(s.link_label || '케이스')} 보기 <span aria-hidden="true">→</span></span></span></a>` : `<span class="src">${esc(s.source)}</span></div>`}`).join('')}</div>
   </div>
 </header>
 
@@ -199,6 +237,11 @@ function home() {
     </div>
   </div>
 </section>
+${Object.values(processes).map((p) => `<template id="process-${esc(p.case)}">
+  <h2>${esc(p.title)}</h2>
+  <div class="doc-props">${list(p.tags).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}${p.position ? `<span class="prop"><b>포지션</b> ${esc(p.position)}</span>` : ''}${p.contribution ? `<span class="prop"><b>기여도</b> ${esc(p.contribution)}%</span>` : ''}</div>
+  ${md(p.body)}
+</template>`).join('\n')}
 ${stories.map((s) => `<template id="story-${esc(s.slug)}">
   <h2>${esc(s.title)}</h2>${s.period ? `<span class="period">${esc(s.period)}</span>` : ''}
   ${s.cover ? `<figure><img src="${esc(s.cover)}" alt=""></figure>` : ''}
@@ -231,7 +274,7 @@ ${stories.map((s) => `<template id="story-${esc(s.slug)}">
   <div class="wrap">
     ${sectionHead(site.method)}
     <div class="principles">
-      ${list(site.method.principles).map((p) => `<div class="principle"><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p><span class="proof mono">${esc(p.proof)}</span></div>`).join('\n      ')}
+      ${list(site.method.principles).map((p) => `<div class="principle"><h3>${esc(p.title)}</h3><p>${esc(p.body)}</p><div class="proof">${linkCases(p.proof)}</div></div>`).join('\n      ')}
     </div>
   </div>
 </section>
