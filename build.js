@@ -78,11 +78,11 @@ const posts = readFolder('posts')
   .sort((a, b) => new Date(b.date) - new Date(a.date));
 
 // ---------- shell ----------
-function shell({ title, desc, body, home }) {
+function shell({ title, desc, body, home, navItems, brand, brandHref }) {
   const h = home ? '' : '/';
-  const nav = [
+  const nav = navItems || [
     ['경력', `${h}#career`], ['이야기', `${h}#journey`], ['성장 모델', `${h}#model`], ['실험 원칙', `${h}#method`],
-    ['케이스', `${h}#cases`], ['AI·자동화', `${h}#automation`], ['블로그', '/blog/'], ['연락처', `${h}#contact`],
+    ['케이스', `${h}#cases`], ['AI·자동화', `${h}#automation`], ['블로그', '/blog/'], ['영상 포폴', '/video/'], ['연락처', `${h}#contact`],
   ];
   return `<!doctype html>
 <html lang="ko">
@@ -103,7 +103,7 @@ function shell({ title, desc, body, home }) {
 <body>
 <nav class="nav" aria-label="섹션">
   <div class="wrap">
-    <a class="brand" href="/"><strong>${esc(site.name)} · Growth Marketer</strong></a>
+    <a class="brand" href="${brandHref || '/'}"><strong>${esc(brand || site.name + ' · Growth Marketer')}</strong></a>
     <ul>${nav.map(([t, u]) => `<li><a href="${u}">${t}</a></li>`).join('')}</ul>
   </div>
 </nav>
@@ -335,6 +335,111 @@ ${posts.length ? `<section id="blog">
   return shell({ title: `${site.name} · Growth Marketer`, desc: site.seo_description, body, home: true });
 }
 
+
+// ---------- video portfolio page (/video/) ----------
+function videoPage() {
+  const v = JSON.parse(fs.readFileSync(C('video.json'), 'utf8'));
+  const ytUrl = (id, vert) => vert ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`;
+  const byId = Object.fromEntries(list(v.work.items).map((w) => [w.id, w]));
+  const reel = list(v.hero.reel).map((id) => {
+    const w = byId[id] || { id, vertical: true, title: '' };
+    const th = thumbFor(id);
+    return `<a class="reel-item" href="${ytUrl(id, w.vertical)}" target="_blank" rel="noopener" aria-label="${esc(w.title)} 영상 보기">${th ? `<img src="${th}" alt="" loading="lazy">` : ''}<span class="play" aria-hidden="true"></span></a>`;
+  }).join('');
+  const work = list(v.work.items).map((w) => {
+    const th = thumbFor(w.id);
+    return `<a class="work${w.vertical ? ' short' : ''}" data-stages="${esc(list(w.tags).join(' '))}" href="${ytUrl(w.id, w.vertical)}" target="_blank" rel="noopener">
+      <span class="thumb" aria-hidden="true">${th ? `<img src="${th}" alt="" loading="lazy">` : ''}</span>
+      <span class="w-body"><span class="w-brand">${esc(w.brand)}</span><strong class="w-title">${esc(w.title)}</strong><span class="w-brief">${esc(w.brief)}</span><span class="w-result">${esc(w.result)}</span></span>
+    </a>`;
+  }).join('\n');
+  const usedProc = list(v.cases.items).map((c) => processes[c.process]).filter(Boolean);
+  const cases = list(v.cases.items).map((c) => {
+    const pr = processes[c.process];
+    return `<article class="vcase" id="${esc(c.anchor)}">
+      <div class="vc-head"><span class="w-brand">${esc(c.brand)}</span><h3>${esc(c.title)}</h3></div>
+      <ol class="vc-steps">${list(c.steps).map((s) => `<li><span class="lb">${esc(s.label)}</span><span>${esc(s.body)}</span></li>`).join('')}</ol>
+      <div class="vc-foot"><div class="vc-results">${list(c.results).map((r) => `<div class="r"><span class="v">${esc(r.value)}</span><span class="t">${esc(r.text)}</span></div>`).join('')}</div>
+      ${pr ? `<button class="case-chip process-open" type="button" data-process="${esc(c.process)}" data-title="${esc(pr.title)}">세부 작업 과정 보기 <span aria-hidden="true">→</span></button>` : ''}</div>
+    </article>`;
+  }).join('\n');
+  const body = `
+<header class="hero vhero">
+  <div class="wrap">
+    <div class="eyebrow">${esc(v.hero.eyebrow)}</div>
+    <h1>${esc(v.hero.line1)}<br><em>${esc(v.hero.emphasis)}</em>${esc(v.hero.line2_rest)}</h1>
+    <p class="lede">${esc(v.hero.lede)}</p>
+    <p class="hero-cta"><a class="btn-dark" href="#contact">${esc(v.hero.cta)} →</a><a class="btn-line" href="#work">작업 보기</a></p>
+    <div class="reel">${reel}</div>
+    <div class="stats vstats" role="list">${list(v.hero.stats).map((s) => `<a class="stat stat-link" role="listitem" href="${esc(s.link)}"><span class="k mono">${esc(s.value)}</span><span class="d">${esc(s.desc)}</span><span class="src src-link"><span>${esc(s.source)}</span><span class="case-chip">${esc(s.link_label)} 보기 <span aria-hidden="true">→</span></span></span></a>`).join('')}</div>
+  </div>
+</header>
+
+<section id="work"><div class="wrap">
+  ${sectionHead(v.work)}
+  <div class="filters" role="group" aria-label="작업 유형 필터">
+    <button class="chip" type="button" data-f="all" aria-pressed="true">전체</button>
+    ${list(v.work.filters).map((f) => `<button class="chip" type="button" data-f="${esc(f.value)}" aria-pressed="false">${esc(f.label)}</button>`).join('')}
+  </div>
+  <div class="works">${work}</div>
+</div></section>
+
+<section id="vcases"><div class="wrap">
+  ${sectionHead(v.cases)}
+  <div class="vcases">${cases}</div>
+</div></section>
+${usedProc.map((p) => `<template id="process-${esc(p.case)}">
+  <h2>${esc(p.title)}</h2>
+  <div class="doc-props">${list(p.tags).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}${p.position ? `<span class="prop"><b>포지션</b> ${esc(p.position)}</span>` : ''}${p.contribution ? `<span class="prop"><b>기여도</b> ${esc(p.contribution)}%</span>` : ''}</div>
+  ${md(p.body)}
+</template>`).join('\n')}
+<dialog class="reader" id="reader" aria-label="읽기">
+  <div class="bar"><span id="reader-title">세부 작업 과정</span><button class="close" type="button" id="reader-close">닫기</button></div>
+  <div class="content" id="reader-content"></div>
+</dialog>
+
+<section id="vprocess"><div class="wrap">
+  ${sectionHead(v.process)}
+  <ol class="vsteps">${list(v.process.steps).map((s, i) => `<li><span class="n">${String(i + 1).padStart(2, '0')}</span><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></li>`).join('')}</ol>
+  ${v.process.guide_url ? `<p class="guide"><a class="case-chip" href="${esc(v.process.guide_url)}" target="_blank" rel="noopener">${esc(v.process.guide_label)} <span aria-hidden="true">↗</span></a></p>` : ''}
+</div></section>
+
+<section id="services"><div class="wrap">
+  ${sectionHead(v.services)}
+  <div class="services">${list(v.services.items).map((s) => `<article class="svc"><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p><ul>${list(s.includes).map((i) => `<li>${esc(i)}</li>`).join('')}</ul></article>`).join('')}</div>
+</div></section>
+
+<section id="tools"><div class="wrap">
+  <div class="tools-brands">
+    <div>${sectionHead(v.tools)}<div class="tool-groups">${list(v.tools.groups).map((g) => `<div><h4>${esc(g.name)}</h4><p class="pills">${list(g.items).map((i) => `<span class="pill">${esc(i)}</span>`).join('')}</p></div>`).join('')}</div></div>
+    <div>${sectionHead(v.brands)}<p class="pills brands">${list(v.brands.items).map((i) => `<span class="pill big">${esc(i)}</span>`).join('')}</p></div>
+  </div>
+</div></section>
+
+<section id="about"><div class="wrap">
+  ${sectionHead(v.about)}
+  <div class="about-box"><p>${esc(v.about.body)}</p><a class="case-chip" href="/">${esc(v.about.growth_link_label)} <span aria-hidden="true">→</span></a></div>
+</div></section>
+
+<section id="contact" class="contact"><div class="wrap">
+  ${sectionHead(v.contact)}
+  <div class="box">
+    <div class="who2"><strong>${esc(site.name)}</strong><span class="hint">영상 콘텐츠 마케터 · 프리랜서</span>
+      <ul class="checklist">${list(v.contact.checklist).map((c) => `<li>${esc(c)}</li>`).join('')}</ul></div>
+    <div class="lines">
+      ${site.phone ? `<div class="row"><span class="k">Phone</span><span class="num" id="tel-num">${esc(site.phone)}</span><button class="copy" type="button" data-target="tel-num" data-label="번호 복사">번호 복사</button></div>` : ''}
+      ${site.email ? `<div class="row"><span class="k">Email</span><span class="num mail" id="mail-addr">${esc(site.email)}</span><button class="copy" type="button" data-target="mail-addr" data-label="이메일 복사">이메일 복사</button></div>` : ''}
+    </div>
+  </div>
+</div></section>
+`;
+  return shell({
+    title: `${site.name} · 영상 콘텐츠 마케터`, desc: v.seo_description, body,
+    brand: `${site.name} · Video Content Marketer`, brandHref: '/video/',
+    navItems: [['작업', '#work'], ['케이스', '#vcases'], ['제작 방식', '#vprocess'], ['서비스', '#services'], ['문의', '#contact'], ['그로스 포폴', '/']],
+  });
+}
+
 // ---------- blog ----------
 function blogIndex() {
   const body = `
@@ -366,5 +471,6 @@ copyDir(path.join(ROOT, 'assets'), path.join(OUT, 'assets'));
 copyDir(path.join(ROOT, 'admin'), path.join(OUT, 'admin'));
 write('index.html', home());
 write('blog/index.html', blogIndex());
+if (fs.existsSync(C('video.json'))) write('video/index.html', videoPage());
 for (const p of posts) write(`blog/${p.slug}/index.html`, postPage(p));
 console.log(`built: ${cases.length} cases, ${stories.length} stories, ${posts.length} posts`);

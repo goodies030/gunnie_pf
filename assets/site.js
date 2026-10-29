@@ -1,7 +1,7 @@
 (function () {
   // case filters
   var chips = [].slice.call(document.querySelectorAll('.chip'));
-  var cases = [].slice.call(document.querySelectorAll('.case'));
+  var cases = [].slice.call(document.querySelectorAll('.case, .work'));
   chips.forEach(function (c) {
     c.addEventListener('click', function () {
       var f = c.getAttribute('data-f');
@@ -29,6 +29,12 @@
       b.addEventListener('click', function () {
         var t = document.getElementById('story-' + b.getAttribute('data-story'));
         if (t) open(b.querySelector('.st').textContent, t.content.cloneNode(true));
+      });
+    });
+    [].forEach.call(document.querySelectorAll('.process-open'), function (b) {
+      b.addEventListener('click', function () {
+        var t = document.getElementById('process-' + b.getAttribute('data-process'));
+        if (t) open(b.getAttribute('data-title') || '세부 작업 과정', t.content.cloneNode(true));
       });
     });
     [].forEach.call(document.querySelectorAll('.process-card'), function (b) {
