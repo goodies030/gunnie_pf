@@ -83,3 +83,18 @@ document.addEventListener('click', function (e) {
     if (all) all.click();
   }
 });
+// videos: hide the download menu item and block right-click save (incl. videos inside markdown)
+function noDownload(root) {
+  if (!root.querySelectorAll) return;
+  var vs = root.tagName === 'VIDEO' ? [root] : root.querySelectorAll('video');
+  Array.prototype.forEach.call(vs, function (v) {
+    if (v.controlsList) v.controlsList.add('nodownload');
+  });
+}
+noDownload(document);
+new MutationObserver(function (ms) {
+  ms.forEach(function (m) { m.addedNodes.forEach(noDownload); });
+}).observe(document.body, { childList: true, subtree: true });
+document.addEventListener('contextmenu', function (e) {
+  if (e.target.closest && e.target.closest('video, .g-item, .vid')) e.preventDefault();
+});

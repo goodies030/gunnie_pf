@@ -120,7 +120,7 @@ const sectionHead = (s) => `<div class="eyebrow">${esc(s.eyebrow)}</div>\n    <h
 function videoCard(v) {
   const short = v.vertical ? ' short' : '';
   if (v.type === 'mp4' && v.file) {
-    return `<div class="vid mp4${short}"><span class="thumb"><video src="${esc(v.file)}" controls playsinline preload="metadata"${v.thumbnail ? ` poster="${esc(v.thumbnail)}"` : ''}></video></span><span class="cap">${esc(v.caption)}</span></div>`;
+    return `<div class="vid mp4${short}"><span class="thumb"><video src="${esc(v.file)}" controls controlslist="nodownload" playsinline preload="metadata"${v.thumbnail ? ` poster="${esc(v.thumbnail)}"` : ''}></video></span><span class="cap">${esc(v.caption)}</span></div>`;
   }
   if (!v.url) return '';
   return `<a class="vid${short}" href="${esc(v.url)}" target="_blank" rel="noopener"><span class="thumb" aria-hidden="true">${v.thumbnail ? `<img src="${esc(v.thumbnail)}" alt="" loading="lazy">` : ''}</span><span class="cap">${esc(v.caption)}</span><span class="src">${v.vertical ? 'YouTube Shorts' : 'YouTube에서 보기'} ↗</span></a>`;
@@ -383,7 +383,7 @@ function videoPage() {
 ${v.gallery && list(v.gallery.items).length ? `
 <section id="gallery"><div class="wrap">
   ${sectionHead(v.gallery)}
-  <div class="gallery">${list(v.gallery.items).map((g) => `<div class="g-item"><video src="${esc(g.file)}#t=0.1" controls playsinline preload="metadata"></video></div>`).join('')}</div>
+  <div class="gallery">${list(v.gallery.items).map((g) => `<div class="g-item"><video src="${esc(g.file)}#t=0.1" controls controlslist="nodownload" playsinline preload="metadata"></video></div>`).join('')}</div>
 </div></section>` : ''}
 
 <section id="vcases"><div class="wrap">
