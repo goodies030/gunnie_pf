@@ -17,8 +17,8 @@ local_backend: true
 
 locale: ko
 publish_mode: simple
-site_url: https://YOUR-SITE.vercel.app
-display_url: https://YOUR-SITE.vercel.app
+site_url: https://gunniepf-nine.vercel.app
+display_url: https://gunniepf-nine.vercel.app
 
 # 업로드한 이미지·영상이 저장되는 곳
 media_folder: static/uploads
